@@ -1,0 +1,32 @@
+问题记录：利用libsvm进行svm模型的训练时，出现错误
+Traceback (most recent call last):
+  File "E:\Python\python-3.11.8\Lib\site-packages\scipy\__init__.py", line 150, in __getattr__
+    return globals()[name]
+           ~~~~~~~~~^^^^^^
+KeyError: 'ndarray'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "e:\毕业设计\SVM-Chinese-Classification-master\SVMmodel.py", line 19, in <module>
+    model = svm_train(y, x)
+            ^^^^^^^^^^^^^^^
+  File "E:\Python\python-3.11.8\Lib\site-packages\libsvm\svmutil.py", line 89, in svm_train
+    prob = svm_problem(y, x, isKernel=(param.kernel_type == PRECOMPUTED))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Python\python-3.11.8\Lib\site-packages\libsvm\svm.py", line 220, in __init__
+    tmp_xi, tmp_idx = gen_svm_nodearray(xi, isKernel=isKernel)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Python\python-3.11.8\Lib\site-packages\libsvm\svm.py", line 91, in gen_svm_nodearray
+    elif scipy and isinstance(xi, scipy.ndarray):
+                                  ^^^^^^^^^^^^^
+  File "E:\Python\python-3.11.8\Lib\site-packages\scipy\__init__.py", line 152, in __getattr__
+    raise AttributeError(
+AttributeError: Module 'scipy' has no attribute 'ndarray'
+
+
+出现原因：scipy版本不对，新版本更新了很多东西，有些东西删除了，而Windows下的libsvm定位不到
+解决方法：要不退版本，要不就换种方法进行svm训练
+备注：我放弃了libsvm，退版本太麻烦了，我还是换种方法吧，换成了sklearn的svm 
+
+
